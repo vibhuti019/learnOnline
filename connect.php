@@ -15,7 +15,7 @@ if ($conn->connect_error) {
   die("{ Connection failed: " . $conn->connect_error." }");
 }
 
-//Create a DataBase If It Doesn't Exist
+ //Create a DataBase If It Doesn't Exist
 $sql = "CREATE DATABASE IF NOT EXISTS api_classroom;";
 
 
