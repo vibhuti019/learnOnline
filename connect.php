@@ -1,10 +1,22 @@
 <?php
+/*
+
+  Connects To Mysql
+  Initializes The Database If The Db Doesn't Exist
+
+*/
+
+
+
+//Environment Values
 $servername = "localhost";
 $username = "root";
 $password = "root";
 $dbName = "api_classroom";
 
-//header('Content-Type: application/json');
+
+//Sets Json Output Header
+header('Content-Type: application/json');
 
 
 // Create connection
@@ -12,18 +24,18 @@ $conn = new mysqli($servername, $username, $password);
 
 // Check connection
 if ($conn->connect_error) {
-  die("{ Connection failed: " . $conn->connect_error." }");
+  die(json_encode(['Error Connection' => $conn->connect_error]));
 }
 
  //Create a DataBase If It Doesn't Exist
-$sql = "CREATE DATABASE IF NOT EXISTS api_classroom;";
+$sql = "CREATE DATABASE IF NOT EXISTS ".$dbName;
 
 
-//execute query
+//Executes QUERY
 if ($conn->query($sql) === TRUE) {
-  $staus = ['Status'=>'Database Created'];
+  $status = ['Database'=>'Created'];
 } else {
-   die(json_encode([ 'Error' => 'Database Could Not Be Created'.$conn->error ]));
+   die(json_encode([ 'Error Creating Database' => $conn->error ]));
 }
 
 $conn->close();
@@ -36,64 +48,93 @@ $conn->close();
 //Connect To DataBase
 $conn = new mysqli($servername, $username, $password,$dbName);
 if ($conn->connect_error) {
-  die(json_encode( ['Connection failed' =>   "Table Could Not Be Created ".$conn->connect_error ]));
+  die(json_encode( ['Error Connection' =>   $conn->connect_error ]));
 }
 
 
-//Create Table Login
-$sql= "CREATE TABLE LoginTable ( email TEXT NOT NULL ,  mobile VARCHAR NOT NULL ,   verifedClassIds JSON NOT NULL ,   nameOfUser TEXT NOT NULL , accountType TEXT NOT NULL , )";
+//Create Table StudentLogin
+$sql= "CREATE TABLE IF NOT EXISTS StudentDataTable ( 
+  email TEXT NOT NULL ,  
+  mobile TEXT NOT NULL ,   
+  verifedClassIds JSON NOT NULL ,   
+  nameOfUsers TEXT NOT NULL , 
+  classGroup TEXT NOT NULL , 
+  CONSTRAINT UC_Data UNIQUE (email,mobile)
+  )";
 
 
 //Execute Query
 if ($conn->query($sql) === TRUE) {
-  $status = array_push($status , ['Status'=>'Table Login Created']);
+  $status['Table 1']="Created";
 } else {
-  $error = ['Error'=>'Creating Table Login '.$conn->error];
-  echo json_encode($error);
+  $error = ['Error Creating Table 1'=>$conn->error];
 }
 
 //Create Table Problems
-$sql= "CREATE TABLE Problems ( 
-  email VARCHAR NOT NULL , 
-  classId VARCHAR NOT NULL , 
+$sql= "CREATE TABLE IF NOT EXISTS Problems ( 
+  email TEXT NOT NULL , 
+  classId TEXT NOT NULL , 
   probString TEXT NOT NULL , 
   probImage TEXT NOT NULL , 
   probTitle TEXT NOT NULL , 
-  createdAtDate DATE NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+  updatedAtDate TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   )";
 
 
 //Execute Query
 if ($conn->query($sql) === TRUE) {
-  array_push($status , ['Status' => 'Table Problems Created']);
+  $status['Table 2'] = 'Created';
 } else {
-  array_push($error , ['Error' => 'Creating Table Problems'.$conn->error]);
+  $error['Error Creating Table 2'] = $conn->error;
 }
 
 //Create Table StudentData
-$sql= "CREATE TABLE StudentData ( 
-  email VARCHAR NOT NULL , 
-  classId VARCHAR NOT NULL , 
+$sql= "CREATE TABLE IF NOT EXISTS StudentData ( 
+  email TEXT NOT NULL , 
+  classId TEXT NOT NULL , 
   probCode TEXT NOT NULL , 
-  createdAtDate DATE NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+  updatedAtDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (email)
   )";
 
 
 
 //Execute Query
 if ($conn->query($sql) === TRUE) {
-  $tempStatus['Status'] = 'Table Problems Created'; 
-  array_push($status , $tempStatus);
+  $status['Table 3'] = 'Created'; 
 } else {
-  $tempError['Error'] = 'Creating Table Problems '.$conn->error; 
-  array_push($error , $tempError);
+  $error['Error Creating Table 3'] = $conn->error; 
 }
 
-echo "$error"."$status";
+//Create Table StudentData
+$sql= "CREATE TABLE IF NOT EXISTS ClassDetails ( 
+    className TEXT NOT NULL,
+    faculty TEXT NOT NULL,
+    studentGroup TEXT NOT NULL,
+    startTime TEXT NOT NULL,
+    date TIMESTAMP NOT NULL,
+    duration TEXT NOT NULL,
+    classId TEXT NOT NULL,
+    UNIQUE (classId)  
+  )";
 
-echo json_encode(array_push($error,$status));
 
-// echo "Connected successfully";
+
+//Execute Query
+if ($conn->query($sql) === TRUE) {
+  $status['Table 4'] = 'Created'; 
+} else {
+  $error['Error Creating Table 4'] = $conn->error; 
+}
+
+
+
+$output["Errors"] = $error;
+$output["Status"] = $status;
+
+echo json_encode($output);
+
+
 
 ?>
 
