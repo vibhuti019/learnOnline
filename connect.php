@@ -8,6 +8,7 @@
 
 
 
+
     /*
 
       Connects To Mysql
@@ -65,12 +66,12 @@
 
 
       //Create Table StudentLogin
-      $sql= "CREATE TABLE IF NOT EXISTS StudentDataTable ( 
+      $sql= "CREATE TABLE IF NOT EXISTS LoginDataTable ( 
         email TEXT NOT NULL ,  
         mobile TEXT NOT NULL ,   
-        verifedClassIds JSON NOT NULL ,   
-        nameOfUsers TEXT NOT NULL , 
-        classGroup TEXT NOT NULL , 
+        name TEXT NOT NULL , 
+        classGroup TEXT NOT NULL ,
+        isFaculty TEXT NOT NULL, 
         CONSTRAINT UC_Data UNIQUE (email,mobile)
         )";
 
@@ -106,7 +107,7 @@
         classId TEXT NOT NULL , 
         probCode TEXT NOT NULL , 
         updatedAtDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        UNIQUE (email)
+        UNIQUE (email, classId)
         )";
 
 
@@ -145,6 +146,8 @@
       $output["Status"] = $status;
 
       echo json_encode($output);
+
+      die();
       
     }
 

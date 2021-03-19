@@ -1,16 +1,18 @@
 <?php
 
-    if($_SERVER['SCRIPT_NAME'] != "/middleware.php"){
+    if($_SERVER['SCRIPT_NAME'] != "/index.php"){
         die('FALSE');
     }
 
+
     
     function checkApiAuth(){
-        echo 'True';
+        return true;
     }
 
     function checkCookieAuth(){
         echo 'Teacher/Student';
+        return true;
     }
 
 
@@ -23,4 +25,5 @@
 
     // include_once('./index.php');
 
+        
 ?>

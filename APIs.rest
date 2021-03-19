@@ -4,8 +4,13 @@
 
 
 ####
-GET http://localhost:8000/middleware.php
+GET http://localhost:8000/
+Cookie: hello:yes
 
+{
+"email":"ajit.shukla@gmail.com", 
+"classId":"24"
+}
 
 ####
   #  Create And Initialize DataBase
@@ -13,10 +18,7 @@ GET http://localhost:8000/middleware.php
 
 
 ####
-GET http://localhost:8000/connect.php
-
-
-
+GET http://localhost:8000/connect
 
 
 ####
@@ -88,7 +90,7 @@ POST http://localhost:8000/api/v1/student/login
 
 #Student Get Problem Of Specific Class
 ####
-POST http://localhost:8000/api/v1/student/login
+POST http://localhost:8000/api/v1/student/getProblem
 
 {
 "stEmail":"someone@alone.com", 
@@ -98,7 +100,7 @@ POST http://localhost:8000/api/v1/student/login
 
 #Student Program Upload
 ####
-POST http://localhost:8000/api/v1/student/login
+POST http://localhost:8000/api/v1/student/sendProgramCode
 
 {
 "stEmail":"hello@loner.com", 

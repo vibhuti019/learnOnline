@@ -1,38 +1,46 @@
 <?php 
 
 
-    if($_SERVER['SCRIPT_NAME'] != "/middleware.php"){
+    if($_SERVER['SCRIPT_NAME'] != "/index.php"){
         die('FALSE');
     }
+
     
 
-    function teacherLogin($cookie){
+    function apiTeacherLogin($cookie){
         echo 'Teacher Login';
+        die();
     }
 
 
-    function teacherSetProblem(){
+    function apiTeacherSetProblem(){
         echo 'Problem Details';
+        die();
     }
 
 
-    function teacherGetLiveUsers(){
+    function apiTeacherGetLiveUsers(){
         echo 'Live Users';
+        die();
     }
 
-    function teacherGetProgramCode(){
+    function apiTeacherGetProgramCode(){
         echo 'Get Student Program Code';
+        die();
     }
 
-    function studentLogin(){
+    function apiStudentLogin(){
         echo 'Student Login';
+        die();
     }
 
-    function studentGetProblem(){
+    function apiStudentGetProblem(){
         echo 'Student Get Problem';
+        die();
     }
 
-    function studentSendProgramCode(){
+    function apiStudentSendProgramCode(){
         echo 'Send Program Program Code';
+        die();
     }
 ?>

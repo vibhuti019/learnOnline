@@ -1,17 +1,17 @@
 <?php
 
-    // header("Content-Type: application/json");
+    //echo var_dump($_SERVER);
 
     if($_SERVER['SCRIPT_NAME'] != "/index.php"){
         die('FALSE');
     }
 
-
-    // if()
-
-
-    // Checks Cookie
-    // $cookie = "";
+    $temp = file_get_contents('php://input');
+    $array['JSON'] = json_decode($temp);
+    $array['Cookies'] = $_COOKIE;
+            
+    include('./urls.php');
+    
     
     // if(isset($_COOKIE['AuthCookie'])){
     //     $cookie = $_COOKIE['AuthCookie'];
@@ -26,12 +26,6 @@
     // $array['Cookies'] = $_COOKIE;
     // $array['link'] = explode('/',$_SERVER['PATH_INFO']); 
     
-    // echo json_encode($array);
-
-
-    // if($link[1]=='admin'){
-
-    // }
-
+    
 
 ?>

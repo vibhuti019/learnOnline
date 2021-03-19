@@ -1,16 +1,18 @@
 <?php
 
-    if($_SERVER['SCRIPT_NAME'] != "/middleware.php"){
+    if($_SERVER['SCRIPT_NAME'] != "/index.php"){
         die('FALSE');
     }
-    
 
-    function adminHome(){
+
+    function studentHome(){
         echo 'Home';
+        die();
     }
 
-    function adminClass(){
+    function studentClass(){
         echo 'Students';
+        die();
     }
     
 ?>
