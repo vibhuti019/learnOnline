@@ -7,6 +7,15 @@
 GET http://localhost:8000/middleware.php
 
 
+####
+  #  Create And Initialize DataBase
+####
+
+
+####
+GET http://localhost:8000/connect.php
+
+
 
 
 

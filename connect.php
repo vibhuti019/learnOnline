@@ -1,138 +1,148 @@
 <?php
-/*
 
-  Connects To Mysql
-  Initializes The Database If The Db Doesn't Exist
+    //Page Can't Be Requested Directly
 
-*/
-
-
-
-//Environment Values
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbName = "api_classroom";
+    if($_SERVER['SCRIPT_NAME'] != "/index.php"){
+      die('FALSE');
+    }
 
 
-//Sets Json Output Header
-header('Content-Type: application/json');
 
+    /*
 
-// Create connection
-$conn = new mysqli($servername, $username, $password);
+      Connects To Mysql
+      Initializes The Database If The Db Doesn't Exist
 
-// Check connection
-if ($conn->connect_error) {
-  die(json_encode(['Error Connection' => $conn->connect_error]));
-}
-
- //Create a DataBase If It Doesn't Exist
-$sql = "CREATE DATABASE IF NOT EXISTS ".$dbName;
-
-
-//Executes QUERY
-if ($conn->query($sql) === TRUE) {
-  $status = ['Database'=>'Created'];
-} else {
-   die(json_encode([ 'Error Creating Database' => $conn->error ]));
-}
-
-$conn->close();
+    */
 
 
 
 
+    //Environment Values
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbName = "api_classroom";
 
 
-//Connect To DataBase
-$conn = new mysqli($servername, $username, $password,$dbName);
-if ($conn->connect_error) {
-  die(json_encode( ['Error Connection' =>   $conn->connect_error ]));
-}
+    //Sets Json Output Header
+    header('Content-Type: application/json');
 
 
-//Create Table StudentLogin
-$sql= "CREATE TABLE IF NOT EXISTS StudentDataTable ( 
-  email TEXT NOT NULL ,  
-  mobile TEXT NOT NULL ,   
-  verifedClassIds JSON NOT NULL ,   
-  nameOfUsers TEXT NOT NULL , 
-  classGroup TEXT NOT NULL , 
-  CONSTRAINT UC_Data UNIQUE (email,mobile)
-  )";
+    // Create connection
+    $conn = new mysqli($servername, $username, $password);
+
+    // Check connection
+    if ($conn->connect_error) {
+      die(json_encode(['Error Connection' => $conn->connect_error]));
+    }
+
+    //Create a DataBase If It Doesn't Exist
+    $sql = "CREATE DATABASE IF NOT EXISTS ".$dbName;
 
 
-//Execute Query
-if ($conn->query($sql) === TRUE) {
-  $status['Table 1']="Created";
-} else {
-  $error = ['Error Creating Table 1'=>$conn->error];
-}
+    //Executes QUERY
+    if ($conn->query($sql) === TRUE) {
+      $status = ['Database'=>'Created'];
+    } else {
+      die(json_encode([ 'Error Creating Database' => $conn->error ]));
+    }
 
-//Create Table Problems
-$sql= "CREATE TABLE IF NOT EXISTS Problems ( 
-  email TEXT NOT NULL , 
-  classId TEXT NOT NULL , 
-  probString TEXT NOT NULL , 
-  probImage TEXT NOT NULL , 
-  probTitle TEXT NOT NULL , 
-  updatedAtDate TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-  )";
-
-
-//Execute Query
-if ($conn->query($sql) === TRUE) {
-  $status['Table 2'] = 'Created';
-} else {
-  $error['Error Creating Table 2'] = $conn->error;
-}
-
-//Create Table StudentData
-$sql= "CREATE TABLE IF NOT EXISTS StudentData ( 
-  email TEXT NOT NULL , 
-  classId TEXT NOT NULL , 
-  probCode TEXT NOT NULL , 
-  updatedAtDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE (email)
-  )";
+    $conn->close();
 
 
 
-//Execute Query
-if ($conn->query($sql) === TRUE) {
-  $status['Table 3'] = 'Created'; 
-} else {
-  $error['Error Creating Table 3'] = $conn->error; 
-}
-
-//Create Table StudentData
-$sql= "CREATE TABLE IF NOT EXISTS ClassDetails ( 
-    className TEXT NOT NULL,
-    faculty TEXT NOT NULL,
-    studentGroup TEXT NOT NULL,
-    startTime TEXT NOT NULL,
-    date TIMESTAMP NOT NULL,
-    duration TEXT NOT NULL,
-    classId TEXT NOT NULL,
-    UNIQUE (classId)  
-  )";
 
 
 
-//Execute Query
-if ($conn->query($sql) === TRUE) {
-  $status['Table 4'] = 'Created'; 
-} else {
-  $error['Error Creating Table 4'] = $conn->error; 
-}
+    //Connect To DataBase
+    $conn = new mysqli($servername, $username, $password,$dbName);
+    if ($conn->connect_error) {
+      die(json_encode( ['Error Connection' =>   $conn->connect_error ]));
+    }
+
+
+    //Create Table StudentLogin
+    $sql= "CREATE TABLE IF NOT EXISTS StudentDataTable ( 
+      email TEXT NOT NULL ,  
+      mobile TEXT NOT NULL ,   
+      verifedClassIds JSON NOT NULL ,   
+      nameOfUsers TEXT NOT NULL , 
+      classGroup TEXT NOT NULL , 
+      CONSTRAINT UC_Data UNIQUE (email,mobile)
+      )";
+
+
+    //Execute Query
+    if ($conn->query($sql) === TRUE) {
+      $status['Table 1']="Created";
+    } else {
+      $error = ['Error Creating Table 1'=>$conn->error];
+    }
+
+    //Create Table Problems
+    $sql= "CREATE TABLE IF NOT EXISTS Problems ( 
+      email TEXT NOT NULL , 
+      classId TEXT NOT NULL , 
+      probString TEXT NOT NULL , 
+      probImage TEXT NOT NULL , 
+      probTitle TEXT NOT NULL , 
+      updatedAtDate TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      )";
+
+
+    //Execute Query
+    if ($conn->query($sql) === TRUE) {
+      $status['Table 2'] = 'Created';
+    } else {
+      $error['Error Creating Table 2'] = $conn->error;
+    }
+
+    //Create Table StudentData
+    $sql= "CREATE TABLE IF NOT EXISTS StudentData ( 
+      email TEXT NOT NULL , 
+      classId TEXT NOT NULL , 
+      probCode TEXT NOT NULL , 
+      updatedAtDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE (email)
+      )";
 
 
 
-$output["Errors"] = $error;
-$output["Status"] = $status;
+    //Execute Query
+    if ($conn->query($sql) === TRUE) {
+      $status['Table 3'] = 'Created'; 
+    } else {
+      $error['Error Creating Table 3'] = $conn->error; 
+    }
 
-echo json_encode($output);
+    //Create Table StudentData
+    $sql= "CREATE TABLE IF NOT EXISTS ClassDetails ( 
+        className TEXT NOT NULL,
+        faculty TEXT NOT NULL,
+        studentGroup TEXT NOT NULL,
+        startTime TEXT NOT NULL,
+        date TIMESTAMP NOT NULL,
+        duration TEXT NOT NULL,
+        classId TEXT NOT NULL,
+        UNIQUE (classId)  
+      )";
+
+
+
+    //Execute Query
+    if ($conn->query($sql) === TRUE) {
+      $status['Table 4'] = 'Created'; 
+    } else {
+      $error['Error Creating Table 4'] = $conn->error; 
+    }
+
+
+
+    $output["Errors"] = $error;
+    $output["Status"] = $status;
+
+    echo json_encode($output);
 
 
 

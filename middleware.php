@@ -1,13 +1,20 @@
 <?php
 
-    $cookie = "";
-
-
     if($_SERVER['SCRIPT_NAME'] != "/middleware.php"){
         die('FALSE');
     }
 
     
+    function checkApiAuth(){
+        return true;
+    }
+
+    function checkCookieAuth(){
+        return 'Teacher/Student';
+    }
+
+
+
     if(isset($_COOKIE['AuthCookie'])){
         $cookie = $_COOKIE['AuthCookie'];
     } else {
