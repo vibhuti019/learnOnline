@@ -1,13 +1,17 @@
 <?php
 
-header("Content-Type: application/json");
+    header("Content-Type: application/json");
 
 
-$array['hello'] = "World";
-$array['$_REQUEST'] = $_REQUEST;
-$array['$_SERVER'] = $_SERVER;
-$array['Cookies'] = $_COOKIE;
-$array['link'] = explode('/',$_SERVER['PATH_INFO']); 
- 
-echo json_encode($array);
+    $temp = file_get_contents('php://input');
+    $array['JSON'] = json_decode($temp);
+    $array['Cookies'] = $_COOKIE;
+    $array['link'] = explode('/',$_SERVER['PATH_INFO']); 
+    
+    // $json = file_get_contents('php://input');
+    // $json = json_decode($json);
+    echo json_encode($array);
+
+
+
 ?>

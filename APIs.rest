@@ -1,2 +1,99 @@
 ####
-GET http://localhost:8000/
+  #  Development Checks 
+####
+
+
+####
+GET http://localhost:8000/middleware.php
+
+
+
+
+
+####
+  #  Teacher API Code 
+####
+
+#Teacher Login
+####
+POST http://localhost:8000/api/v1/teacher/login
+
+{
+"email":"ajit.shukla@gmail.com", 
+"classId":"24"
+}
+
+#Teacher Sets Problem
+####
+POST http://localhost:8000/api/v1/teacher/setProblem
+
+{
+"email":"ajit.shukla@abes.ac.in", 
+"classId": "74hfkdsk", 
+"authKey":"h74hdj36dk", 
+"probString":"Description of problem", 
+"probImage":"base64prblempng", 
+"probTitle":"Some Problem"
+}
+
+#Get List Of Live Users
+####
+POST http://localhost:8000/api/v1/teacher/getLiveUsers
+
+{
+"email":"ajit.shukla@abes.ac.in", 
+"classId":"47dhrytfgh", 
+"authKey":"47skldhf"
+}
+
+
+
+#Get Program Code OF Student (Specific)
+####
+POST http://localhost:8000/api/v1/teacher/getProgramCode
+
+{
+"email":"ajit.shukla@gmail.com",  
+"classId":"2h67", 
+"authKey":"h3489fh", 
+"stEmail":"student@abc.com" 
+}
+
+
+
+
+
+####
+  #  Student API Code 
+####
+
+
+#Student Login
+POST http://localhost:8000/api/v1/student/login
+
+{
+"stEmail":"ajit.shukla@gmail.com", 
+"classId":"24"
+}
+
+
+#Student Get Problem Of Specific Class
+####
+POST http://localhost:8000/api/v1/student/login
+
+{
+"stEmail":"someone@alone.com", 
+"authKey":"d47dhrteu29277", 
+"classId":"skjf484"
+}
+
+#Student Program Upload
+####
+POST http://localhost:8000/api/v1/student/login
+
+{
+"stEmail":"hello@loner.com", 
+"classId":"73945jfs",  
+"programCode":"program_code_in_base64_string",
+"authKey":"d47dhrteu29277" 
+}
