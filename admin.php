@@ -5,4 +5,17 @@
     }
 
 
+    function adminHome(){
+        echo 'Home';
+    }
+
+
+    function adminUsers(){
+        echo 'Users';
+    }
+
+
+    function adminClass(){
+        echo 'Students';
+    }
 ?>
