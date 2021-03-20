@@ -90,7 +90,8 @@
         probString TEXT NOT NULL , 
         probImage TEXT NOT NULL , 
         probTitle TEXT NOT NULL , 
-        updatedAtDate TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        updatedAtDate TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT Problem_Data UNIQUE(email,classId)
         )";
 
 
@@ -107,7 +108,7 @@
         classId TEXT NOT NULL , 
         probCode TEXT NOT NULL , 
         updatedAtDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        UNIQUE (email, classId)
+        CONSTRAINT Student_Data UNIQUE (email, classId)
         )";
 
 
@@ -128,7 +129,7 @@
           date TIMESTAMP NOT NULL,
           duration TEXT NOT NULL,
           classId TEXT NOT NULL,
-          UNIQUE (classId)  
+          CONSTRAINT Class_Data UNIQUE (classId)  
         )";
 
 
@@ -140,6 +141,8 @@
         $error['Error Creating Table 4'] = $conn->error; 
       }
 
+
+      $conn->close();
 
 
       $output["Errors"] = $error;

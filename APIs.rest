@@ -1,6 +1,13 @@
 ####
   #  Development Checks 
 ####
+GET http://localhost:8000/
+
+{
+"email":"ajit.shukla@gmail.com", 
+"classId":"24"
+}
+
 
 
 ####
@@ -30,7 +37,7 @@ GET http://localhost:8000/connect
 POST http://localhost:8000/api/v1/teacher/login
 
 {
-"email":"ajit.shukla@gmail.com", 
+"email":"ajit.shukla@abes.ac.in", 
 "classId":"24"
 }
 
@@ -40,9 +47,9 @@ POST http://localhost:8000/api/v1/teacher/setProblem
 
 {
 "email":"ajit.shukla@abes.ac.in", 
-"classId": "74hfkdsk", 
-"authKey":"h74hdj36dk", 
-"probString":"Description of problem", 
+"classId": "2356", 
+"authKey":"176a5a00148b23ee2d", 
+"probString":"Description of problem 5", 
 "probImage":"base64prblempng", 
 "probTitle":"Some Problem"
 }
@@ -53,8 +60,8 @@ POST http://localhost:8000/api/v1/teacher/getLiveUsers
 
 {
 "email":"ajit.shukla@abes.ac.in", 
-"classId":"47dhrytfgh", 
-"authKey":"47skldhf"
+"classId":"2356", 
+"authKey":"176a5a00148b23ee2d"
 }
 
 
@@ -64,9 +71,9 @@ POST http://localhost:8000/api/v1/teacher/getLiveUsers
 POST http://localhost:8000/api/v1/teacher/getProgramCode
 
 {
-"email":"ajit.shukla@gmail.com",  
-"classId":"2h67", 
-"authKey":"h3489fh", 
+"email":"ajit.shukla@abes.ac.in",  
+"classId":"2356", 
+"authKey":"176a5a00148b23ee2d", 
 "stEmail":"student@abc.com" 
 }
 
@@ -83,7 +90,7 @@ POST http://localhost:8000/api/v1/teacher/getProgramCode
 POST http://localhost:8000/api/v1/student/login
 
 {
-"stEmail":"ajit.shukla@gmail.com", 
+"stEmail":"ajit.shukla@gmail.in", 
 "classId":"24"
 }
 
@@ -93,9 +100,9 @@ POST http://localhost:8000/api/v1/student/login
 POST http://localhost:8000/api/v1/student/getProblem
 
 {
-"stEmail":"someone@alone.com", 
-"authKey":"d47dhrteu29277", 
-"classId":"skjf484"
+"stEmail":"ajit.shukla@gmail.in", 
+"authKey":"257da6b94f4d477668", 
+"classId":"2356"
 }
 
 #Student Program Upload
@@ -103,8 +110,8 @@ POST http://localhost:8000/api/v1/student/getProblem
 POST http://localhost:8000/api/v1/student/sendProgramCode
 
 {
-"stEmail":"hello@loner.com", 
-"classId":"73945jfs",  
+"stEmail":"ajit.shukla@gmail.in", 
+"classId":"2356",  
 "programCode":"program_code_in_base64_string",
-"authKey":"d47dhrteu29277" 
+"authKey":"257da6b94f4d477668" 
 }

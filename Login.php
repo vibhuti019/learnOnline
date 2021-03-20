@@ -5,10 +5,17 @@
         die('FALSE');
     }
 
-
+    function setCookieOnLogin($mail){
+        $cookieAuth = createAuth($mail);
+        setcookie("AuthCookie", $cookieAuth , time()+60*60*2 , "/" , '' , true , true);
+        setcookie("Email", $mail , time()+60*60*2 , "/" , '' , true , true);
+    }
 
     function echoLoginPage(){
-        return 'Login';
+        setCookieOnLogin("mail@gmail.com");
+        echo "Login";
+        die();
     }
+
 
 ?>

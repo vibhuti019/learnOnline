@@ -5,9 +5,12 @@
     }
 
 
+
     function errorJSON(){
-        echo 'JSON';
-        die();
+        //Sets Json Output Header
+        header('Content-Type: application/json');
+        $output['Error'] = "Invalid Request";
+        die(json_encode($output));
     }
 
     function error(){

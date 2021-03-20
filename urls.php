@@ -14,26 +14,27 @@
     //Get The Cookies Passed
     $cookieVariables = $array['Cookies']; 
 
-    $errorJSON = 'Location: ./apiError';
-    $error = 'Location: ./error';
-
-    // echo json_encode($jsonVariables);
-    // echo json_encode($cookieVariables);
+    $errorJSON = 'Location: /apiError';
+    $error = 'Location: /error';
+    $login = 'Location: /login';
 
     //Checks if no other location is requested other than the main page
     if($_SERVER['SCRIPT_NAME'] != "/index.php"){
         die('FALSE');
     }
 
-    
-    
+
+
     //creates an array pf path
     $path = explode('/',$_SERVER['PATH_INFO']);
-    
+
 
     //The 0th index is always empty
     if($path[1] == "api"){
         
+        //Sets Json Output Header
+        header('Content-Type: application/json');
+
         if($path[2] == "v1"){
         
             
@@ -41,7 +42,7 @@
                 
                 if($path[4] == "login"){
                     
-                    apiTeacherLogin($cookieVariables);
+                    apiTeacherLogin($jsonVariables);
 
                 }else if($path[4] == "setProblem")  {
 
@@ -51,7 +52,7 @@
 
                     } else {
 
-                        die($errorJSON);
+                        die(header($errorJSON));
 
                     }
 
@@ -64,7 +65,7 @@
 
                     } else {
 
-                        die($errorJSON);
+                        die(header($errorJSON));
 
                     }
 
@@ -76,7 +77,7 @@
 
                     } else {
 
-                        die($errorJSON);
+                        die(header($errorJSON));
 
                     }
 
@@ -96,7 +97,7 @@
 
                     } else {
 
-                        die($errorJSON);
+                        die(header($errorJSON));
 
                     }
 
@@ -108,7 +109,7 @@
 
                     } else {
 
-                        die($errorJSON);
+                        die(header($errorJSON));
 
                     }
 
@@ -119,53 +120,79 @@
 
         }
         
-        die($errorJSON);
+        die(header($errorJSON));
 
-    } else if($path[1] == 'admin') {
+    } else if($path[1] == "admin") {
 
-        if($path[2] == 'Home'){
+        echo "Cookie Check";
 
-            adminHome();
 
-        } else if($path[2] == 'Users'){
+        if(checkCookieAuth()){
+            
+            if($path[2] == "Home"){
 
-            adminUsers();
+                adminHome();
 
-        } else if($path[2] == 'Class'){
+            } else if($path[2] == "Users"){
 
-            adminClass();
+                adminUsers();
 
+            } else if($path[2] == "Class"){
+
+                adminClass();
+
+            }
+            echo "Hello";
+
+            //die(header($error));
+
+        } else {
+
+            die(header($login));
         }
 
+    } else if($path[1] == "student") {
 
-    } else if($path[1] == 'student') {
+        if(checkCookieAuth()){
+            
+            if($path[2] == "Home"){
 
-        if($path[2] == 'Home'){
+                studentHome();
 
-            studentHome();
+            } else if($path[2] == "Class"){
 
-        } else if($path[2] == 'Class'){
+                studentClass();
 
-            studentClass();
+            }
+
+            die(header($error));
+
+        } else {
+
+            die(header($login));
 
         }
-
-    } else if($path[1] == 'connect') {
+        
+    } else if($path[1] == "connect") {
 
         connect();
 
-    } else if($path[1] == 'error') {
+    } else if($path[1] == "error") {
      
         error();
 
-    } else if($path[1] == 'apiError') {
+    } else if($path[1] == "apiError") {
 
         errorJSON();
+
+    } else if($path[1] == "login") {
+
+        echoLoginPage();
 
     }
     
     
-    die($error);
+    //die(header($login));
 
 
 ?>
