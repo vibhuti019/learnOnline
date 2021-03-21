@@ -141,6 +141,22 @@
 
                 adminClass();
 
+            } else if($path[2] == "addUsers") {
+
+                adminAddUsers();
+
+            } else if($path[2] == "addClass") {
+
+                adminAddClass();
+
+            } else if($path[2] == "addAdminUser") {
+
+                adminAddAdminUser();
+
+            } else if($path[2] == "changePassword") {
+
+                adminChangePassword();
+
             }
             echo "Hello";
 
@@ -162,6 +178,14 @@
             } else if($path[2] == "Class"){
 
                 studentClass();
+
+            } else if($path[2] == "changePassword") {
+
+                studentChangePassword();
+
+            } else if($path[2] == "joinClass") {
+
+                studentJoinClass($path[3]);
 
             }
 
@@ -192,7 +216,7 @@
     }
     
     
-    //die(header($login));
+    die(header($login));
 
 
 ?>

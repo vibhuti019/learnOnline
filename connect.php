@@ -71,7 +71,9 @@
         mobile TEXT NOT NULL ,   
         name TEXT NOT NULL , 
         classGroup TEXT NOT NULL ,
-        isFaculty TEXT NOT NULL, 
+        isFaculty TEXT NOT NULL,
+        isAdmin TEXT NOT NULL DEFAULT 'false',
+        password TEXT NOT NULL DEFAULT '5aa765d61d8327deb882cf', 
         CONSTRAINT UC_Data UNIQUE (email,mobile)
         )";
 
