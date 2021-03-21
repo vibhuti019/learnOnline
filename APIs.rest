@@ -115,3 +115,11 @@ POST http://localhost:8000/api/v1/student/sendProgramCode
 "programCode":"program_code_in_base64_string",
 "authKey":"257da6b94f4d477668" 
 }
+
+
+
+
+#Cookie Based Api (Auth is passed in Cookie)
+####
+  #APIs reqd for APIs
+####

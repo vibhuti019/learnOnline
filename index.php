@@ -6,6 +6,9 @@
         die('FALSE');
     }
 
+    header('X-Powered-By: Innovation');
+    header('X-Developed-By: Vibhuti Singh, github:@vibhuti019');
+
     $temp = file_get_contents('php://input');
     $array['JSON'] = json_decode($temp);
     $array['Cookies'] = $_COOKIE;
