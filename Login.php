@@ -21,9 +21,16 @@
                 $fetchedRow = $result->fetch_assoc();
                 $generatedPassword = createPassword("password");
                 if($generatedPassword == $password){
-                    echo json_encode($fetchedRow);
-                    setCookieOnLogin($_POST['email'],'/admin');
-                    die(header('Location: /admin/Home'));       
+                    $accountType = checkAccountType($_POST["email"]);
+                    if($accountType == 1){
+                        echo json_encode($fetchedRow);
+                        setCookieOnLogin($_POST['email'],'/student');
+                        die(header('Location: /student/home'));
+                    } else if($accountType ==2){
+                        echo json_encode($fetchedRow);
+                        setCookieOnLogin($_POST['email'],'/admin');
+                        die(header('Location: /student/home'));       
+                    }
                 }
                 else {
                     die(header($GLOBALS["login"]));
@@ -53,6 +60,7 @@
     function echoLoginPage(){
         
         checkPostData();
+        unsetAllCookie();
         $html =  "<!DOCTYPE html>
         <html>
         <head>
@@ -345,6 +353,7 @@
         </html>";
         
         
+        
             echo $html;
         
         die();
@@ -354,6 +363,34 @@
     function createPassword($text){
 
         return substr(md5($text),8,-2);
+
+    }
+
+    function checkAccountType($email){
+
+        $sql = "SELECT * FROM LoginDataTable WHERE email=\"".$email."\"";
+        $result = executeQuery($sql);
+
+        if($result->num_rows > 0){
+            $fetchedRow = $result->fetch_assoc();
+            if($fetchedRow['isAdmin'] == "true"){
+                return 2;
+            }
+            else if($fetchedRow['isFaculty'] == "false"){
+                return 1;
+            }
+        } else {
+            return 0;
+        }
+         
+        return 0;
+
+    }
+
+    function unsetAllCookie(){
+
+        setcookie("AuthCookie", '' , time()-60 , '' , '' , true , true);
+        setcookie("Email", '' , time()-60 , '' , '' , true , true);
 
     }
 ?>
