@@ -19,30 +19,31 @@
         $newAuth = createAuth($email); 
 
         if($json->authKey == $newAuth){
-            return true;
+
+            return true; //type Of User (Admin/Student)
+        
         }
 
         die(header($GLOBALS['errorJSON']));
     }
 
     function checkCookieAuth(){
-        echo "Cookie Check";
 
         if(isset($_COOKIE['AuthCookie']) && isset($_COOKIE['Email'])){
             $cookie = $_COOKIE['AuthCookie'];
             $newCookieAuth = createAuth($_COOKIE['Email']);
             if($cookie == $newCookieAuth){
-                return true;
+                
+                if(checkAuthType($_COOKIE['Email'])){
+                    return true;
+                }
+
             }
             return false;
         }   
         return false;
         
     
-
-
-        echo 'Teacher/Student';
-        return true;
     }
 
 
@@ -54,8 +55,26 @@
         return $authToSend;
     }
 
-    
-    // include_once('./index.php');
+    function checkAuthType($cookieEmail){
+
+        $sql = "SELECT * FROM LoginDataTable WHERE email=\"".$cookieEmail."\"";
+        $result = executeQuery($sql);
+
+        if($result->num_rows > 0){
+            $fetchedRow = $result->fetch_assoc();
+            if($fetchedRow['isAdmin'] == "true"){
+                return 2;
+            }
+            else if($fetchedRow['isFaculty'] == "false"){
+                return 1;
+            }
+        } else {
+            return 0;
+        }
+         
+        return 0;
+
+    }
 
         
 ?>

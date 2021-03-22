@@ -124,20 +124,18 @@
 
     } else if($path[1] == "admin") {
 
-        echo "Cookie Check";
-
 
         if(checkCookieAuth()){
             
-            if($path[2] == "Home"){
+            if($path[2] == "home"){
 
                 adminHome();
 
-            } else if($path[2] == "Users"){
+            } else if($path[2] == "users"){
 
                 adminUsers();
 
-            } else if($path[2] == "Class"){
+            } else if($path[2] == "class"){
 
                 adminClass();
 
@@ -158,9 +156,8 @@
                 adminChangePassword();
 
             }
-            echo "Hello";
 
-            //die(header($error));
+            die(header('Location: /admin/home'));       
 
         } else {
 
@@ -171,11 +168,11 @@
 
         if(checkCookieAuth()){
             
-            if($path[2] == "Home"){
+            if($path[2] == "home"){
 
                 studentHome();
 
-            } else if($path[2] == "Class"){
+            } else if($path[2] == "class"){
 
                 studentClass();
 
@@ -189,7 +186,7 @@
 
             }
 
-            die(header($error));
+            die(header('Location: /student/home'));
 
         } else {
 
@@ -213,6 +210,19 @@
 
         echoLoginPage();
 
+    } else if(checkCookieAuth()){
+
+        $user = checkAuthType($_COOKIE['Email']);
+
+        if($user==1){
+            die(header('Location: /admin/home'));
+        }
+        else if($user == 2){
+            die(header('Location: /student/home'));
+        }
+
+
+        die(header($login));
     }
     
     

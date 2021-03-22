@@ -123,3 +123,11 @@ POST http://localhost:8000/api/v1/student/sendProgramCode
 ####
   #APIs reqd for APIs
 ####
+GET http://localhost:8000/login
+
+
+#Login with POST Data
+####
+POST http://localhost:8000/login
+
+username=hello&password=hello

@@ -23,9 +23,5 @@
         return true;
     }
 
-    function createPassword($text){
-
-        return substr(md5($text),8,-2);
-
-    }
+    
 ?>
